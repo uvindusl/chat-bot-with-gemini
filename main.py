@@ -24,7 +24,7 @@ def generateOutput(paragraph):
     try:
         response = client.models.generate_content(
             model="gemini-2.0-flash",
-            content=paragraph,
+            contents=paragraph,
             config=types.GenerateContentConfig(
                 system_instruction="You are a Robot. Your name is Jimmy.",
                 max_output_tokens=400,
@@ -50,6 +50,11 @@ def display():
     logger.info('Request received')
 
     data = file.get('message')
+
+    if data is None:
+        return jsonify({"status":"error", "message":"No message received"}), 400
+    else:
+        return jsonify({"status":"success", "message": generateOutput(data)}), 200
 
 @app.route('/input')
 def test():
