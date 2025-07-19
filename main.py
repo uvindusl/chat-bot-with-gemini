@@ -51,26 +51,26 @@ def display():
 
     data = file.get('message')
 
-    keep_writing = True
-
-    while keep_writing:
-        while data != 'End':
-            answer = generateOutput(data)
-            logger.info(f"Sending data: {data}")
-            return jsonify({
-                "status": "success",
-                "message" : answer
-            }), 201
-
-            if data == 'End':
-                end = generateOutput("End")
-                break
-                return jsonify({
-                    "status": "success",
-                    "message" : end
-                }), 201
-
-            keep_writing = False
+    # keep_writing = True
+    #
+    # while keep_writing:
+    #     while data != 'End':
+    #         answer = generateOutput(data)
+    #         logger.info(f"Sending data: {data}")
+    #         return jsonify({
+    #             "status": "success",
+    #             "message" : answer
+    #         }), 201
+    #
+    #         if data == 'End':
+    #             end = generateOutput("End")
+    #             break
+    #             return jsonify({
+    #                 "status": "success",
+    #                 "message" : end
+    #             }), 201
+    #
+    #         keep_writing = False
 
 
 # # get API Key from .env file
