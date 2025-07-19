@@ -31,7 +31,7 @@ body {
 
 /* Header styles */
 .card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000000 0%, #cc1812 100%);
   padding: 20px;
   display: flex;
   align-items: center;
@@ -103,7 +103,7 @@ body {
 
 .message-box.right {
   align-self: flex-end;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000000 0%, #ca1313 100%);
   color: white;
   border-bottom-right-radius: 5px;
 }
@@ -142,7 +142,7 @@ body {
 }
 
 .message-send:focus {
-  border-color: #667eea;
+  border-color: #ff0606;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -152,7 +152,7 @@ body {
 
 .button-send {
   padding: 15px 30px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000000 0%, #df2424 100%);
   color: white;
   border: none;
   border-radius: 25px;
