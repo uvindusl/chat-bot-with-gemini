@@ -1,8 +1,9 @@
 import { useState } from "react";
-import "./App.css";
+import "./css/App.css";
+import Chat from "./components/Chat";
 
 function App() {
-  return <h1>hi</h1>;
+  return <Chat />;
 }
 
 export default App;
