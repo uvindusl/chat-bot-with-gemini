@@ -1,11 +1,13 @@
 from google import genai
 from google.genai import types
 from dotenv import dotenv_values
+from flask_cors import CORS
 from flask import Flask , jsonify , request
 import logging
 
 config = dotenv_values(".env")
 app = Flask(__name__)
+CORS(app)
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -62,6 +64,6 @@ def test():
     return jsonify({'input': input_va})
 
 if __name__ == '__main__':
-    app.run(port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
 
 
