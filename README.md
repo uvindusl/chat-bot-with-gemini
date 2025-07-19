@@ -69,7 +69,11 @@ Before you begin, ensure you have the following installed:
     pip install -r requirements.txt
     ```
 
-4.  **Run the Flask application:**
+4.  **Create .env file with Gemini API Key:**
+   
+    Go to Google Ai Studio and genarate API key and create .env file in the project and add this in your .env file `API_KEY="add api key here"`.
+
+5.  **Run the Flask application:**
     ```bash
     python3 main.py
     ```
