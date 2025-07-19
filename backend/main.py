@@ -1,11 +1,13 @@
 from google import genai
 from google.genai import types
 from dotenv import dotenv_values
+from flask_cors import CORS
 from flask import Flask , jsonify , request
 import logging
 
 config = dotenv_values(".env")
 app = Flask(__name__)
+CORS(app)
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
