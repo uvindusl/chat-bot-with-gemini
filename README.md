@@ -8,7 +8,6 @@ Jimmy the Robot is a friendly chatbot designed to assist users with their querie
 
 * [Features](#features)
 * [Technologies Used](#technologies-used)
-* [Project Structure](#project-structure)
 * [Getting Started](#getting-started)
     * [Prerequisites](#prerequisites)
     * [Backend Setup (Flask)](#backend-setup-flask)
