@@ -31,7 +31,8 @@ body {
 
 /* Header styles */
 .card-header {
-  background: linear-gradient(135deg, #000000 0%, #cc1812 100%);
+  /* background: linear-gradient(135deg, #000000 0%, #cc1812 100%); */
+  background: #ffc60b;
   padding: 20px;
   display: flex;
   align-items: center;
@@ -96,15 +97,16 @@ body {
 
 .message-box.left {
   align-self: flex-start;
-  background: #e5e7eb;
-  color: #374151;
-  border-bottom-left-radius: 5px;
+  /* background: linear-gradient(135deg, #000000 0%, #ca1313 100%); */
+  /* background: #9ca3af; */
+  color: black;
+  /* border-bottom-left-radius: 5px; */
 }
 
 .message-box.right {
   align-self: flex-end;
-  background: linear-gradient(135deg, #000000 0%, #ca1313 100%);
-  color: white;
+  background: #e5e7eb;
+  color: #374151;
   border-bottom-right-radius: 5px;
 }
 
@@ -142,7 +144,7 @@ body {
 }
 
 .message-send:focus {
-  border-color: #ff0606;
+  border-color: #ffc60b;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -152,7 +154,8 @@ body {
 
 .button-send {
   padding: 15px 30px;
-  background: linear-gradient(135deg, #000000 0%, #df2424 100%);
+  /* background: linear-gradient(135deg, #000000 0%, #df2424 100%); */
+  background: #ffc60b;
   color: white;
   border: none;
   border-radius: 25px;

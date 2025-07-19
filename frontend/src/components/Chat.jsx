@@ -64,9 +64,9 @@ function Chat() {
                 key={index}
                 className={`message-box ${
                   msg.sender === "user"
-                    ? "left"
-                    : msg.sender === "backend"
                     ? "right"
+                    : msg.sender === "backend"
+                    ? "left"
                     : "system-message"
                 }`}
               >
