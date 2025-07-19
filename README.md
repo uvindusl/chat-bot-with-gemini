@@ -14,9 +14,7 @@ Jimmy the Robot is a friendly chatbot designed to assist users with their querie
     * [Frontend Setup (React)](#frontend-setup-react)
     * [Docker Setup (Backend)](#docker-setup-backend)
 * [Usage](#usage)
-* [Contributing](#contributing)
 * [License](#license)
-* [Contact](#contact)
 
 ## Features
 
