@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Mic, MicOff } from "lucide-react";
 
 function Chat() {
   const [message, setMessage] = useState("");
@@ -49,6 +50,8 @@ function Chat() {
       }
     }
   };
+
+  const useVoiceToText = { constinuos };
 
   return (
     <div className="center">

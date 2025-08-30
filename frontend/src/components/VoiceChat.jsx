@@ -1,16 +1,97 @@
 import React, { useState, useEffect } from "react";
 import { Mic, MicOff } from "lucide-react";
-import { useVoiceToText } from "react-speakup"; // Using your preferred library
 
 const VoiceChat = () => {
+  // A custom hook to handle the Web Speech API
+  const useVoiceToText = ({ continuous, lang }) => {
+    const [transcript, setTranscript] = useState("");
+    const [isListening, setIsListening] = useState(false);
+    const recognitionRef = React.useRef(null);
+
+    useEffect(() => {
+      // Check for browser support
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        console.error("Speech recognition is not supported in this browser.");
+        return;
+      }
+
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.lang = lang;
+      recognitionRef.current.continuous = continuous;
+      recognitionRef.current.interimResults = false;
+
+      // Event handler for when a result is received
+      recognitionRef.current.onresult = (event) => {
+        const last = event.results.length - 1;
+        const newTranscript = event.results[last][0].transcript;
+        setTranscript(newTranscript);
+      };
+
+      // Event handler for when the recognition service stops
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+
+      // Event handler for errors
+      recognitionRef.current.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+        setIsListening(false);
+      };
+
+      // Clean up on component unmount
+      return () => {
+        if (recognitionRef.current) {
+          recognitionRef.current.stop();
+        }
+      };
+    }, [continuous, lang]);
+
+    const startListening = () => {
+      if (recognitionRef.current) {
+        setTranscript("");
+        setIsListening(true);
+        recognitionRef.current.start();
+      }
+    };
+
+    const stopListening = () => {
+      if (recognitionRef.current && isListening) {
+        recognitionRef.current.stop();
+        setIsListening(false);
+      }
+    };
+
+    const resetTranscript = () => {
+      setTranscript("");
+    };
+
+    return {
+      startListening,
+      stopListening,
+      transcript,
+      isListening,
+      resetTranscript,
+    };
+  };
+
   // Initialize all states
   const [allMessages, setAllMessages] = useState([]);
   const [message, setMessage] = useState("");
-  const { startListening, stopListening, transcript, isListening } =
-    useVoiceToText({
-      continuous: true, // Set to false to get a single, final transcript
-      lang: "en-US",
-    });
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  // Destructure resetTranscript from the hook
+  const {
+    startListening,
+    stopListening,
+    transcript,
+    isListening,
+    resetTranscript,
+  } = useVoiceToText({
+    continuous: false,
+    lang: "en-US",
+  });
 
   // Use a state to track when to send the message
   const [shouldSendMessage, setShouldSendMessage] = useState(false);
@@ -42,7 +123,9 @@ const VoiceChat = () => {
         { text: userMessage, sender: "user" },
       ]);
 
-      setMessage(""); // Clear the message state
+      // Clear the message and reset the transcript right after the message is sent
+      setMessage("");
+      resetTranscript();
 
       try {
         const response = await fetch("http://127.0.0.1:8080/display", {
@@ -69,6 +152,14 @@ const VoiceChat = () => {
           ...prevMessages,
           { text: backendResponseText, sender: "backend" },
         ]);
+
+        // Text-to-speech for the backend response
+        const utterance = new SpeechSynthesisUtterance(backendResponseText);
+        utterance.onend = () => {
+          setIsSpeaking(false);
+        };
+        window.speechSynthesis.speak(utterance);
+        setIsSpeaking(true); // Set state to true when speaking begins
       } catch (error) {
         console.error("Error sending message:", error);
         setAllMessages((prevMessages) => [
@@ -76,6 +167,14 @@ const VoiceChat = () => {
           { text: `Error: ${error.message}`, sender: "system-error" },
         ]);
       }
+    }
+  };
+
+  const handleStop = () => {
+    stopListening();
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
     }
   };
 
@@ -116,9 +215,11 @@ const VoiceChat = () => {
             }`}
           />
           <MicOff
-            onClick={stopListening}
+            onClick={handleStop}
             role="button"
-            className="h-12 w-12 cursor-pointer text-gray-400 hover:text-red-600 transition-colors duration-200"
+            className={`h-12 w-12 cursor-pointer transition-colors duration-200 ${
+              isSpeaking ? "text-red-600" : "text-gray-400"
+            }`}
           />
         </div>
       </div>
