@@ -4,7 +4,7 @@ import Chat from "./components/Chat";
 import VoiceChat from "./components/VoiceChat";
 
 function App() {
-  return <VoiceChat />;
+  return <Chat />;
 }
 
 export default App;
